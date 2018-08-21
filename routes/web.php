@@ -13,6 +13,8 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/test', function() {
-	return redirect()->route('home')->with('info', 'test info');
-});
+Route::get('/signup', 'AuthController@getSignUp')->name('auth.signup');
+Route::post('/signup', 'AuthController@postSignUp');
+
+Route::get('/signin', 'AuthController@getSignIn')->name('auth.signin');
+Route::post('/signin', 'AuthController@postSignIn');
