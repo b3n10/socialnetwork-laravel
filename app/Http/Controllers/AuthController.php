@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Redirect;
 
 use App\Models\User;
 
+use Auth;
+
 class AuthController extends Controller
 {
 	public function getSignUp() {
@@ -44,6 +46,32 @@ class AuthController extends Controller
 	}
 
 	public function postSignIn(Request $request) {
-		dd($request);
+		$validator = Validator::make($request->all(), [
+			'username'	=>	'required',
+			'password'	=>	'required'
+		]);
+
+		if ($validator->fails()) {
+			return redirect()->route('auth.signin')
+				->withErrors($validator)
+				->withInput();
+		}
+
+		if (Auth::attempt($request->only(['username', 'password'], $request->has('remember')))) {
+			return redirect()
+				->route('home')
+				->with(
+					'success',
+					'You are now logged in !'
+				);
+		}
+
+		return redirect()
+			->back()
+			->with(
+				'danger',
+				'Invalid email/password !'
+			);
+
 	}
 }

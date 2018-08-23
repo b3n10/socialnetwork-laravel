@@ -1,10 +1,11 @@
 @extends('layouts.main')
 
 @section('title')
-	Sign Up
+	Socio - Sign Up
 @endsection
 
 @section('content')
+	<h3>Sign Up</h3>
 	<div class="col col-md-7">
 		<form action="{{ route('auth.signup')}}" method="POST">
 			{{ csrf_field() }}
