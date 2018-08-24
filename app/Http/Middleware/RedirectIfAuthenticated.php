@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
 						->route('home')
 						->with(
 							'danger',
-							'Sorry, can\'t access page :('
+							'Access denied :('
 						);
         }
 

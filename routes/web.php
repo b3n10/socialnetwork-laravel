@@ -20,7 +20,8 @@ Route::middleware(['guest'])->group(function() {
 	Route::post('/signin', 'AuthController@postSignIn');
 });
 
+Route::middleware(['auth'])->group(function() {
+	Route::get('/signout', 'AuthController@getSignOut')->name('auth.signout');
+	Route::get('/search', 'SearchController@getResults')->name('search.results');
+});
 
-Route::get('/signout', 'AuthController@getSignOut')
-	->middleware('auth')
-	->name('auth.signout');
