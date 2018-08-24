@@ -13,8 +13,14 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/signup', 'AuthController@getSignUp')->name('auth.signup');
-Route::post('/signup', 'AuthController@postSignUp');
+Route::middleware(['guest'])->group(function() {
+	Route::get('/signup', 'AuthController@getSignUp')->name('auth.signup');
+	Route::post('/signup', 'AuthController@postSignUp');
+	Route::get('/signin', 'AuthController@getSignIn')->name('auth.signin');
+	Route::post('/signin', 'AuthController@postSignIn');
+});
 
-Route::get('/signin', 'AuthController@getSignIn')->name('auth.signin');
-Route::post('/signin', 'AuthController@postSignIn');
+
+Route::get('/signout', 'AuthController@getSignOut')
+	->middleware('auth')
+	->name('auth.signout');

@@ -74,4 +74,15 @@ class AuthController extends Controller
 			);
 
 	}
+
+	public function getSignOut() {
+		Auth::logout();
+
+		return redirect()
+			->route('home')
+			->with(
+				'success',
+				'You are now logged out!'
+			);
+	}
 }
