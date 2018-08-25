@@ -1,8 +1,10 @@
 <div class="media">
-	<img class="mr-3" src="#" alt="{{ $user->getName() }}">
+	<a href="{{ route('profile.index', ['username' => $user->username]) }}">
+		<img class="mr-3" src="{{ $user->getAvatarUrl() }}" alt="{{ $user->getName() }}">
+	</a>
 	<div class="media-body">
 		<h5 class="mt-0">
-			<a href="#">
+			<a href="{{ route('profile.index', ['username' => $user->username]) }}">
 				{{ $user->getName() }}
 			</a>
 		</h5>

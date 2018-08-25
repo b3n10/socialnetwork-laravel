@@ -25,7 +25,7 @@
 			<ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
 			@if (Auth::check())
 				<li class="nav-item active">
-					<a class="nav-link" href="#">{{ Auth::user()->getName() }}</a>
+					<a class="nav-link" href="{{ route('profile.index', ['username' => Auth::user()->username]) }}">{{ Auth::user()->getName() }}</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#">Update Profile<span class="sr-only">(current)</span></a>

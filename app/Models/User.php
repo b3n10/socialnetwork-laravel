@@ -38,4 +38,8 @@ class User extends Authenticatable
 		if ($this->first_name) return "{$this->first_name}";
 		if ($this->username) return "{$this->username}";
 	}
+
+	public function getAvatarUrl() {
+		return "https://www.gravatar.com/avatar/{{ md5($this->email) }}?d=retro&s=40";
+	}
 }
