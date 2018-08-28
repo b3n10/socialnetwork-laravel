@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+	{{ $user->username }} - Profile Page
+@endsection
+
 @section('content')
 	<div class="row">
 		<div class="col-lg-5">

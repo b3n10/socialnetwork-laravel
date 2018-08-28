@@ -3,20 +3,23 @@
 @section('content')
 	@if ($users->count())
 		<h4>
-			Search results found {{ $users->count() }} user(s)
+			{{ $results_string }}
 		</h4>
+
+		@section('title')
+			{{ $results_string }}
+		@endsection
+
 		@foreach ($users as $user)
 			@include('user.partials.userblock')
 		@endforeach
-
-		@section('title')
-			Search results found {{ $users->count() }} user(s)
-		@endsection
 	@else
-		<h4>No results found!</h4>
+		<h4>
+			{{ $results_string }}
+		</h4>
 
 		@section('title')
-			No results found!
+			{{ $results_string }}
 		@endsection
 	@endif
 @endsection
