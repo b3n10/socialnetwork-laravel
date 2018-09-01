@@ -1,0 +1,32 @@
+@extends('layouts.main')
+
+@section('title')
+	Friends Page
+@endsection
+
+@section('content')
+	<div class="row">
+		<div class="col-lg-6">
+			<h3>Your friends</h3>
+
+			@if (!$friends->count())
+				<p>You have no friends</p>
+			@else
+				@foreach ($friends as $user)
+					@include('user.partials.userblock')
+				@endforeach
+			@endif
+		</div>
+		<div class="col-lg-6">
+			<h4>Friend Requests</h4>
+
+			@if (!$friend_request->count())
+				<p>You have no friend requests.</p>
+			@else
+				@foreach ($friend_request as $user)
+					@include('user.partials.userblock')
+				@endforeach
+			@endif
+		</div>
+	</div>
+@endsection
