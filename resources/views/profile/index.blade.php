@@ -17,12 +17,12 @@
 				Waiting for {{ $user->getName() }} to accept your request.
 				</p>
 			@elseif (Auth::user()->hasFriendRequestsReceived($user))
-				<a href="#" class="btn btn-primary">Accept Friend Request</a>
+				<a href="{{ route('friend.accept', $user->username) }}" class="btn btn-primary">Accept Friend Request</a>
 			@elseif (Auth::user()->isFriendsWith($user))
 				<p>
 				You and {{ $user->getName() }} are friends.
 				</p>
-			@elseif (!Auth::user()->isFriendsWith($user) && Auth::user()->username !== $user->username)
+			@elseif (Auth::user()->username !== $user->username)
 				<a href="{{ route('friend.add', $user->username) }}" class="btn btn-primary">Add as friend</a>
 			@endif
 
