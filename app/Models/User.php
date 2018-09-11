@@ -33,10 +33,26 @@ class User extends Authenticatable
 		'remember_token',
 	];
 
+	public function getFullName() {
+		return "{$this->first_name} {$this->last_name}";
+	}
+
+	public function getFirstName() {
+		return "{$this->first_name}";
+	}
+
+	public function getUsername() {
+		return "{$this->username}";
+	}
+
 	public function getName() {
-		if ($this->first_name && $this->last_name) return "{$this->first_name} {$this->last_name}";
-		if ($this->first_name) return "{$this->first_name}";
-		if ($this->username) return "{$this->username}";
+		if ($this->first_name && $this->last_name) return $this->getFullName();
+		if ($this->first_name) return $this->getFirstName();
+		if ($this->username) return $this->getUsername();
+	}
+
+	public function statuses() {
+		return $this->hasMany('App\Models\Status', 'user_id');
 	}
 
 	public function getAvatarUrl() {
