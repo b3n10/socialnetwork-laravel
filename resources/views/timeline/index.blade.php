@@ -26,9 +26,67 @@
 			</form>
 		</div>
 	</div>
+
+	<hr>
+
 	<div class="row">
 		<div class="col-lg-5">
-			<!-- timeline updates -->
+			@if (!$statuses->count())
+				<p>No posts yet...</p>
+			@else
+				@foreach ($statuses as $status)
+					<!-- start .media -->
+					<div class="media">
+						<a href="{{ route('profile.index', ['username' => $status->user->username]) }}">
+							<img class="mr-3" src="{{ $status->user->getAvatarUrl() }}" alt="{{ $status->user->username }}">
+						</a>
+
+						<!-- start .media-body -->
+						<div class="media-body">
+							<h4 class="mt-0">
+								<a href="{{ route('profile.index', ['username' => $status->user->username]) }}">
+									{{ $status->user->getName() }}
+								</a>
+							</h4>
+
+							<p>
+							{{ $status->body }}
+							</p>
+
+							<ul class="list-inline">
+								<li class="list-inline-item">
+									<span class="badge">
+									{{ $status->created_at->diffForHumans() }}
+									</span>
+								</li>
+								<li class="list-inline-item">
+									<span class="badge">
+										<a href="#">Like</a>
+									</span>
+								</li>
+								<li class="list-inline-item">
+									<span class="badge badge-primary badge-pill">
+										{{ '2 likes' }}
+									</span>
+								</li>
+							</ul>
+						</div>
+						<!-- end .media-body -->
+					</div>
+					<!-- end .media -->
+
+					<form action="#" method="POST" role="form">
+						<div class="form-group">
+							<textarea name="reply-{{ $status->user->id }}" class="form-control" placeholder="Reply to this status..." rows="1"></textarea>
+						</div>
+
+						<button class="btn btn-default btn-sm mb-3" type="submit">Reply</button>
+					</form>
+
+				@endforeach
+
+				{{ $statuses->render() }}
+			@endif
 		</div>
 	</div>
 @endsection
