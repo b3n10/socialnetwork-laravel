@@ -55,7 +55,7 @@
 
 							<ul class="list-inline">
 								<li class="list-inline-item">
-									<span class="badge">
+									<span style="font-size: 13px;">
 									{{ $status->created_at->diffForHumans() }}
 									</span>
 								</li>
@@ -66,10 +66,46 @@
 								</li>
 								<li class="list-inline-item">
 									<span class="badge badge-primary badge-pill">
-										{{ '2 likes' }}
+										{{ 'X likes' }}
 									</span>
 								</li>
 							</ul>
+
+							<!-- start replies -->
+							@foreach ($status->replies as $reply)
+								<div class="media">
+									<a class="pull-left" href="{{ $reply->user->username }}">
+										<img class="media-object pb-2 pr-2 pt-1" src="{{ $reply->user->getAvatarUrl() }}" alt="{{ $reply->user->username }}">
+									</a>
+									<div class="media-body">
+										<h5 class="media-heading">
+											<a href="{{ $reply->user->username }}">{{ $reply->user->getName() }}</a>
+										</h5>
+										<p>{{ $reply->body }}</p>
+										<ul class="list-inline">
+											<li class="list-inline-item">
+												<span style="font-size: 13px;">
+													{{ $reply->created_at->diffForHumans() }}
+												</span>
+											</li>
+											<li class="list-inline-item">
+												<span class="badge">
+													<a href="#">
+														Like
+													</a>
+												</span>
+											</li>
+											<li class="list-inline-item">
+												<span class="badge badge-primary badge-pill">
+													{{ 'X likes' }}
+												</span>
+											</li>
+										</ul>
+									</div>
+								</div>
+							@endforeach
+							<!-- end replies -->
+
 						</div>
 						<!-- end .media-body -->
 					</div>
