@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
 	public function index() {
 		if (Auth::check()) {
-			$statuses = Status::where(function($q) {
+			$statuses = Status::notReply()->where(function($q) {
 				return $q->where('user_id', Auth::user()->id)
 					->orWhereIn('user_id', Auth::user()->friends()->pluck('id'));
 			})->orderBy('created_at', 'desc')->paginate(10);

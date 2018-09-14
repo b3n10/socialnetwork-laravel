@@ -75,9 +75,17 @@
 					</div>
 					<!-- end .media -->
 
-					<form action="#" method="POST" role="form">
+					<form action="{{ route('status.reply', [ 'statusId' => $status->id ]) }}" method="POST" role="form">
+						{{ csrf_field() }}
+
 						<div class="form-group">
-							<textarea name="reply-{{ $status->user->id }}" class="form-control" placeholder="Reply to this status..." rows="1"></textarea>
+							<textarea name="reply-{{ $status->id }}" class="form-control{{ $errors->has("reply-{$status->id}") ? ' is-invalid' : '' }}" placeholder="Reply to this status..." rows="2"></textarea>
+
+							@if ($errors->has("reply-{$status->id}"))
+								<div class="invalid-feedback">
+									{{ $errors->first("reply-{$status->id}") }}
+								</div>
+							@endif
 						</div>
 
 						<button class="btn btn-default btn-sm mb-3" type="submit">Reply</button>

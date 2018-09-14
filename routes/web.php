@@ -36,5 +36,6 @@ Route::middleware(['auth'])->group(function() {
 	Route::get('/friends/accept/{username}', 'FriendController@getAccept')->name('friend.accept');
 
 	Route::post('/status', 'StatusController@postStatus')->name('status.post');
+	Route::post('/status/{statusId}/reply', 'StatusController@postReply')->name('status.reply');
 });
 
