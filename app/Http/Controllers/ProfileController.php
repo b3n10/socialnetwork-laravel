@@ -14,7 +14,10 @@ class ProfileController extends Controller
 
 		if (!$user) abort(404);
 
-		return view('profile.index', compact('user'));
+		$statuses = $user->statuses()->notReply()->get();
+		$authUserIsFriend = Auth::user()->isFriendsWith($user);
+
+		return view('profile.index', compact('user', 'statuses', 'authUserIsFriend'));
 	}
 
 	public function getEdit(Request $request) {

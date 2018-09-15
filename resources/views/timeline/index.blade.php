@@ -79,7 +79,9 @@
 									</a>
 									<div class="media-body">
 										<h5 class="media-heading">
-											<a href="{{ $reply->user->username }}">{{ $reply->user->getName() }}</a>
+											<a href="{{ route('profile.index', ['username' => $reply->user->username]) }}">
+											{{ $reply->user->getName() }}
+											</a>
 										</h5>
 										<p>{{ $reply->body }}</p>
 										<ul class="list-inline">
