@@ -55,4 +55,19 @@ class StatusController extends Controller
 			->route('home')
 			->with('info', 'You reply has been added :)');
 	}
+
+	public function getLike($statusId) {
+		$status = Status::find($statusId);
+
+		if (!$status) return redirect()->route('home')->with('danger', 'Access denied!');
+
+		if (!Auth::user()->isFriendsWith($status->user)) return redirect()->route('home');
+
+		if (Auth::user()->hasLikedStatus($status)) return redirect()->back();
+
+		$like = $status->likes()->create([]);
+		Auth::user()->likes()->save($like);
+
+		return redirect()->back();
+	}
 }

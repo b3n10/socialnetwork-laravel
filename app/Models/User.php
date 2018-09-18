@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Status;
 
 class User extends Authenticatable
 {
@@ -55,6 +56,10 @@ class User extends Authenticatable
 		return $this->hasMany('App\Models\Status', 'user_id');
 	}
 
+	public function likes() {
+		return $this->hasMany('App\Models\Like', 'user_id');
+	}
+
 	public function getAvatarUrl() {
 		return "https://www.gravatar.com/avatar/{{ md5($this->email) }}?d=retro&s=40";
 	}
@@ -100,5 +105,21 @@ class User extends Authenticatable
 
 	public function isFriendsWith(User $user) {
 		return (bool) $this->friends()->where('id', $user->id)->count();
+	}
+
+	public function hasLikedStatus(Status $status) {
+		return (bool) $status->likes
+			->where('likeable_id', $status->id)
+			->where('likeable_type', get_class($status))
+			->where('user_id', $this->id)
+			->count();
+	}
+
+	public function getLikeCount($statusId) {
+		$status = Status::find($statusId);
+
+		if (!$status) return redirect()->route('home')->with('danger', 'Access denied!');
+
+		return $status->likes->where('likeable_id', $status->id)->count();
 	}
 }

@@ -68,10 +68,8 @@ class AuthController extends Controller
 
 		return redirect()
 			->back()
-			->with(
-				'danger',
-				'Invalid email/password !'
-			);
+			->with('danger', 'Invalid email/password !')
+			->withInput();
 
 	}
 
