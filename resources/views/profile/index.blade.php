@@ -25,16 +25,39 @@
 				Waiting for {{ $user->getName() }} to accept your request.
 				</p>
 			@elseif (Auth::user()->hasFriendRequestsReceived($user))
-				<a href="{{ route('friend.accept', $user->username) }}" class="btn btn-primary">Accept Friend Request</a>
+				<p>
+				{{ $user->first_name }} wants to add you as friend.
+
+					<p>
+						<a href="{{ route('friend.accept', $user->username) }}" class="btn btn-primary">
+							Accept Friend Request
+						</a>
+					</p>
+				</p>
+				<hr>
 			@elseif (Auth::user()->isFriendsWith($user))
 				<p>
-				You and {{ $user->getName() }} are friends.
+					You and {{ $user->getName() }} are friends.
+
+					<form action="{{ route('friend.delete', $user->username) }}" method="POST" role="form">
+						{{ csrf_field() }}
+						<button class="btn btn-danger">
+							Unfriend {{ $user->getFirstName() }}
+						</button>
+					</form>
 				</p>
+				<hr>
 			@elseif (Auth::user()->username !== $user->username)
 				<p>
-				You and {{ $user->getName() }} are not yet friends.
+					You and {{ $user->getName() }} are not yet friends.
+
+					<p>
+						<a href="{{ route('friend.add', $user->username) }}" class="btn btn-primary">
+							Add as friend
+						</a>
+					</p>
 				</p>
-				<a href="{{ route('friend.add', $user->username) }}" class="btn btn-primary">Add as friend</a>
+				<hr>
 			@endif
 
 			<h4>

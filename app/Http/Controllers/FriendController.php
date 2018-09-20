@@ -63,4 +63,19 @@ class FriendController extends Controller
 			->route('profile.index', ['username' => $username])
 			->with('info', 'Friend request accepted :)');
 	}
+
+	public function postDelete($username) {
+		$user = User::where('username', $username)->first();
+
+		if (!$user)
+			return redirect()
+				->route('home', ['username' => $username])
+				->with('danger', 'User could not be found!');
+
+		Auth::user()->deleteFriend($user);
+
+		return redirect()
+			->route('profile.index', ['username' => $username])
+			->with('info', "$user->first_name $user->last_name has been unfriended :(");
+	}
 }

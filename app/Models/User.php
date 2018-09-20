@@ -108,16 +108,17 @@ class User extends Authenticatable
 	}
 
 	public function hasLikedStatus(Status $status) {
-		return (bool) $status->likes
-			->where('likeable_id', $status->id)
-			->where('likeable_type', get_class($status))
-			->where('user_id', $this->id)
-			->count();
+		return (bool) $status->likes->where('user_id', $this->id)->count();
 	}
 
 	public function getLikeCount($statusId) {
 		$status = Status::find($statusId);
 
 		return $status->likes->where('likeable_id', $status->id)->count();
+	}
+
+	public function deleteFriend(User $user) {
+		$this->othersFriends()->detach($user->id);
+		$this->ownFriends()->detach($user->id);
 	}
 }
