@@ -39,7 +39,7 @@
 				<li class="list-inline-item">
 						@if (Auth::user()->getLikeCount($status->id))
 							<span class="badge badge-primary badge-pill">
-								{{ Auth::user()->getLikeCount($status->id) . ' likes'}}
+							{{ Auth::user()->getLikeCount($status->id) }} {{ str_plural('like', Auth::user()->getLikeCount($status->id)) }}
 							</span>
 						@endif
 				</li>

@@ -118,8 +118,6 @@ class User extends Authenticatable
 	public function getLikeCount($statusId) {
 		$status = Status::find($statusId);
 
-		if (!$status) return redirect()->route('home')->with('danger', 'Access denied!');
-
 		return $status->likes->where('likeable_id', $status->id)->count();
 	}
 }
